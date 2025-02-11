@@ -1,39 +1,29 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import * as React from "react";
+import { StyleSheet } from "react-native";
+import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
+import { CustomTabList } from "@/components/CustomTabList";
+import { CustomTabSlotRenderer } from "@/components/CustomTabSlotRenderer";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+export default function Layout() {
+	return (
+		<Tabs>
+			<TabSlot
+				renderFn={(descriptor, options) => (
+					<CustomTabSlotRenderer descriptor={descriptor} options={options} />
+				)}
+			/>
+			<CustomTabList />
+			<TabList style={styles.tabList}>
+				<TabTrigger name="home" href="/" />
+				<TabTrigger name="search" href="/search" />
+				<TabTrigger name="settings" href="/settings" />
+			</TabList>
+		</Tabs>
+	);
 }
+
+const styles = StyleSheet.create({
+	tabList: {
+		display: "none"
+	}
+});
