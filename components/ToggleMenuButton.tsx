@@ -17,8 +17,7 @@ export function ToggleMenuButton(props: ToggleMenuButtonProps) {
 
   React.useEffect(() => {
     if (props.isExpanded) {
-      // Spin two full times, and then stop at 45 degrees to make it look like a close-symbol
-      rotation.value = withSpring(720 + 45, {
+      rotation.value = withSpring(360, {
         damping: 12,
         stiffness: 100,
         mass: 0.6,
@@ -47,7 +46,11 @@ export function ToggleMenuButton(props: ToggleMenuButtonProps) {
   return (
     <TouchableOpacity style={styles.mainButton} onPress={props.onPress}>
       <Animated.View style={animatedStyle}>
-        <Ionicons name="add" size={24} color="#fff" />
+        <Ionicons
+          name={props.isExpanded ? "close" : "menu"}
+          size={24}
+          color="#fff"
+        />
       </Animated.View>
     </TouchableOpacity>
   );
