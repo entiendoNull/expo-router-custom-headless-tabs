@@ -18,17 +18,17 @@ export function CustomTabList() {
 
   return (
     <View style={styles.tabList}>
-      <TabTrigger name="home" asChild>
+      <TabTrigger name="home" asChild reset="never">
         <CustomTabButton icon="home" isExpanded={isExpanded} index={2}>
           Home
         </CustomTabButton>
       </TabTrigger>
-      <TabTrigger name="search" asChild>
+      <TabTrigger name="search" asChild reset="never">
         <CustomTabButton icon="search" isExpanded={isExpanded} index={1}>
           Search
         </CustomTabButton>
       </TabTrigger>
-      <TabTrigger name="settings" asChild>
+      <TabTrigger name="settings" asChild reset="never">
         <CustomTabButton icon="settings" isExpanded={isExpanded} index={0}>
           Settings
         </CustomTabButton>
